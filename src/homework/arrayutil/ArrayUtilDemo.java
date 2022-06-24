@@ -2,28 +2,22 @@ package homework.arrayutil;
 
 public class ArrayUtilDemo {
     public static void main(String[] args) {
-
-        ArraySortMethod sort = new ArraySortMethod();
-        int[] number = {43, 55, 5, -9, 0, 12, 14, 65};
-        sort.sortFromBigToSmall(number);
-        System.out.println();
-        sort.sortFromSmallToBig(number);
-        System.out.println();
+        int[] array = {2, 5, 8, 10, 32, 22, 11, 66, 12, 30, -9};
         ArrayUtilMethod au = new ArrayUtilMethod();
-        au.printElements(number);
+        int max = au.max(array);
+        System.out.println("max = " + max);
+        int min = au.min(array);
+        System.out.println("min = " + min);
+        int count = au.countEven(array);
+        System.out.println("county even = " + count);
+        int count1 = au.countOdd(array);
+        System.out.println("county odd = " + count1);
+        au.printEven(array);
         System.out.println();
-        System.out.println("max = " + au.bigElement(number));
-        System.out.println("min = " + au.smallElement(number));
-        au.pairElements(number);
+        au.printOdd(array);
+        double average = au.average(array);
         System.out.println();
-        au.oddElements(number);
-        System.out.println();
-        int count = au.countPair(number);
-        System.out.println("count = " + count);
-        int countOdd = au.countOdd(number);
-        System.out.println("countOdd = " + countOdd);
-        System.out.println(au.average(number));
-
+        System.out.println("average : " + average);
     }
 
 }

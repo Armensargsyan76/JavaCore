@@ -1,30 +1,26 @@
 package homework.bracechecker;
 
 public class Stack {
-    private char[] array = new char[10];
+
+    private int[] stack = new int[20];
     private int tos = -1;
 
-    void push(char item) {
-        if (tos == 9) {
-            System.out.println("stack filled");
+    void push(int value) {
+        if (tos == stack.length - 1) {
+            System.out.print("stack load");
         } else {
-            array[++tos] = item;
+            stack[++tos] = value;
         }
     }
 
-    char pop() {
+    int pop() {
         if (tos < 0) {
-
-            return ' ';
-        } else {
-            return array[tos--];
-        }
-    }
-
-    boolean isEmpty(){
-        return tos == -1;
-    }
-
+//            System.out.print("stack no load");
+            return 0;
+        } else
+            return stack[tos--];
 
     }
+
+}
 

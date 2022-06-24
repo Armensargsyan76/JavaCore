@@ -2,11 +2,11 @@ package homework.arrayutil;
 
 public class SpaceArrayDemo {
     public static void main(String[] args) {
-        SpaceArrayMethod printMassive = new SpaceArrayMethod();
-        char[] spaceArray = {' ', 'c', 'a', 't', ' ', 'b', 'i', ' ', 'b', ' ', ' '};
-        char[] results = printMassive.spaceArray(spaceArray);
-        for (char c : results) {
-            System.out.print(c + " ");
+        char[] spaceArray = {' ', 'c', 'a', 't', ' ', 'b', 'i', ' ', 'b', ' ', ' ' };
+        SpaceArrayMethod ob = new SpaceArrayMethod();
+        char[] chars = ob.spaceArray(spaceArray);
+        for (char aChar : chars) {
+            System.out.print(aChar);
         }
     }
 }

@@ -1,20 +1,22 @@
 package homework.arrayutil;
 
 public class SpaceArrayMethod {
-    char[] spaceArray(char[] chars) {
+
+    char[] spaceArray(char[] array) {
         int startIndex = 0;
-        int lastIndex = chars.length - 1;
-        while (chars[startIndex] == ' ') {
+        int lastIndex = array.length - 1;
+
+        while (array[startIndex] == ' ') {
             startIndex++;
         }
-        while (chars[lastIndex] == ' ') {
+        while (array[lastIndex] == ' ') {
             lastIndex--;
         }
         char[] result = new char[lastIndex + 1 - startIndex];
-        int x = 0;
+        int tmp = 0;
         for (int i = startIndex; i <= lastIndex; i++) {
-            result[x] = chars[i];
-            x++;
+            result[tmp] = array[i];
+            tmp++;
         }
         return result;
     }

@@ -2,8 +2,7 @@ package homework.arrayutil;
 
 public class ArrayUtil {
     public static void main(String[] args) {
-
-        int[] array = {2, 5, 8, 10, 32, 22, 11, 66, 12, 30};
+        int[] array = {2, 5, 8, 10, 32, 22, 11, 66, 12, 30, 0};
 
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + " ");
@@ -17,8 +16,7 @@ public class ArrayUtil {
                 max = array[i];
             }
         }
-        System.out.println("max = " + max);
-
+        System.out.println("max : " + max);
 
         int min = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -26,14 +24,13 @@ public class ArrayUtil {
                 min = array[i];
             }
         }
-        System.out.println("min = " + min);
+        System.out.println("min : " + min);
 
         for (int i = 0; i < array.length; i++) {
-            if (array[i] % 2 == 0) {
+            if (array[i] % 2 == 0 && array[i] != 0) {
                 System.out.print(array[i] + " ");
             }
         }
-
         System.out.println();
 
         for (int i = 0; i < array.length; i++) {
@@ -46,12 +43,11 @@ public class ArrayUtil {
 
         int count = 0;
         for (int i = 0; i < array.length; i++) {
-
-            if (array[i] % 2 == 0) {
+            if (array[i] % 2 == 0 && array[i] != 0) {
                 count++;
             }
         }
-        System.out.println("quantity = " + count);
+        System.out.println("even county : " + count);
 
         int count1 = 0;
         for (int i = 0; i < array.length; i++) {
@@ -59,22 +55,18 @@ public class ArrayUtil {
                 count1++;
             }
         }
-        System.out.println("quantity = " + count1);
+        System.out.println("odd : " + count1);
 
-        double avg = 0;
+        double result = 0;
         for (int i = 0; i < array.length; i++) {
-            avg += array[i];
+            result += array[i];
         }
-        System.out.println(avg / array.length);
+        System.out.println(result / array.length);
 
-        double avg1 = 0;
+        double result1 = 0;
         for (int i = 0; i < array.length; i++) {
-            avg1 += array[i];
+            result1 += array[i];
         }
-        System.out.println(avg);
-
-
+        System.out.println(result1);
     }
-
 }
-

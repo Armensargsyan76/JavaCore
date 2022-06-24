@@ -1,19 +1,20 @@
 package homework.practicehomework;
 
 public class PracticeHomework {
+
     long convert(int minutes) {
         return minutes * 60;
     }
 
-    int calcAge(int years) {
+    long calcAge(int years) {
         return years * 365;
     }
 
     int nextNumber(int number) {
-        return number + 1;
+        return ++number;
     }
 
-    boolean isSame(int a, int b) {
+    boolean isSameNum(int a, int b) {
         return a == b;
     }
 
@@ -26,10 +27,7 @@ public class PracticeHomework {
     }
 
     int maxLength(int[] array1, int[] array2) {
-        if (array1.length > array2.length) {
-            return array1.length;
-        } else {
-            return array2.length;
-        }
+        return array1.length > array2.length ? array1.length : array2.length;
     }
 }
+

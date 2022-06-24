@@ -1,40 +1,32 @@
 package homework.arrayutil;
 
 public class ArraySortMethod {
-    void sortFromBigToSmall(int[] numbers) {
-        int tmp;
-        int j = 0;
-        for (int i = 1; i < numbers.length; i++) {
-            for (j = 1; j < numbers.length; j++) {
-                if (numbers[j] > numbers[j - 1]) {
-                    tmp = numbers[j - 1];
-                    numbers[j - 1] = numbers[j];
-                    numbers[j] = tmp;
+    int[] sortMaxMin(int[] array) {
+        int max = 0;
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length - 1; j++) {
+                if (array[j] < array[j + 1]) {
+                    max = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = max;
                 }
             }
         }
-        for (int x : numbers) {
-            System.out.print(x + " ");
-        }
-
+        return array;
     }
 
-    void sortFromSmallToBig(int[] numbers) {
-        int tmp;
-        int j = 0;
-        for (int i = 1; i < numbers.length; i++) {
-            for (j = 1; j < numbers.length; j++) {
-                if (numbers[j] < numbers[j - 1]) {
-                    tmp = numbers[j - 1];
-                    numbers[j - 1] = numbers[j];
-                    numbers[j] = tmp;
+    int[] sortMinMax(int[] array) {
+        int min = 0;
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length-1; j++) {
+                if (array[j] > array[j + 1]) {
+                    min = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = min;
                 }
             }
         }
-        for (int x : numbers) {
-            System.out.print(x + " ");
-        }
-
+        return array;
     }
 
 

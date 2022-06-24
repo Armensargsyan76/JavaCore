@@ -1,17 +1,18 @@
 package homework.dynamicarray;
 
 public class DynamicArray {
+
     private int[] array = new int[10];
     private int size;
 
     public void add(int value) {
         if (size == array.length) {
-            increaseArray();
+            extend();
         }
         array[size++] = value;
     }
 
-    private void increaseArray() {
+    private void extend() {
         int[] tmp = new int[array.length + 10];
         for (int i = 0; i < array.length; i++) {
             tmp[i] = array[i];
@@ -19,56 +20,64 @@ public class DynamicArray {
         array = tmp;
     }
 
-    public void print() {
+    public void printArray() {
         for (int i = 0; i < size; i++) {
             System.out.print(array[i] + " ");
         }
     }
 
-    public boolean isEmpty() {
+    boolean isEmpty() {
         return size == 0;
     }
 
-    public int getByIndex(int index) {
+    int getByIndex(int index) {
         return array[index];
     }
 
-    public int getFirstIndexByValue(int value) {
-        int index = 0;
-        for (int i = 0; i < size; i++) {
+    int getFirstIndexByValue(int value) {
+        int i = 0;
+        for (i = 0; i < size; i++) {
             if (array[i] == value) {
-                index = i;
-                break;
+                return i;
             }
         }
-        return index;
+        return i;
     }
 
-    public void set(int index, int value) {
+    void set(int index, int value) {
         array[index] = value;
     }
 
-    public void add(int index, int value) {
-        if (index >= 0 && index < array.length) {
-            for (int i = size; i <= index; i--) {
+    void add(int index, int value) {
+        if (index >= 0 && index < size) {
+            for (int i = size; i >= index; i--) {
                 if (size == array.length) {
-                    increaseArray();
+                    extend();
                 }
                 array[i] = array[i - 1];
             }
             array[index] = value;
             size++;
+        } else {
+            System.out.println("Error : index out of bounds");
         }
 
     }
 
-    public void delete(int index) {
-        if (index >= 0 && index < array.length) {
+    void delete(int index) {
+        if (index >= 0 && index < size) {
             for (int i = index; i < size; i++) {
+                if (size == array.length) {
+                    extend();
+                }
                 array[i] = array[i + 1];
             }
             size--;
+        } else {
+            System.out.println("Error : index out of bounds");
         }
 
     }
+
 }
+

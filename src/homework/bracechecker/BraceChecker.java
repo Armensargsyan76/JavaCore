@@ -20,19 +20,19 @@ public class BraceChecker {
             }
         }
 
-        for (int i = chars.length-1; i >= 0; i--) {
+        for (int i = chars.length - 1; i >= 0; i--) {
             if (chars[i] == ')' || chars[i] == ']' || chars[i] == '}') {
-                char pop = stack.pop();
+                int pop = stack.pop();
                 if (pop == '[' && chars[i] == ']') {
                 } else if (chars[i] == ')' || chars[i] == '}') {
-                    System.out.println("Error: opened " + pop + " but closed " + chars[i] + " at " + i);
+                    System.out.println("Error: opened " + (char) pop + " but closed " + chars[i] + " at " + i);
                 } else if (pop == '(' && chars[i] == ')') {
                 } else if (chars[i] == ']' || chars[i] == '}') {
-                    System.out.println("Error: opened " + pop + " but closed " + chars[i] + " at " + i);
+                    System.out.println("Error: opened " + (char) pop + " but closed " + chars[i] + " at " + i);
                 } else if (pop == '{' && chars[i] == '}') {
                 } else {
                     if (chars[i] == ')' || chars[i] == ']')
-                        System.out.println("Error: opened " + pop + " but closed " + chars[i] + " at " + i);
+                        System.out.println("Error: opened " + (char) pop + " but closed " + chars[i] + " at " + i);
                 }
             }
         }
