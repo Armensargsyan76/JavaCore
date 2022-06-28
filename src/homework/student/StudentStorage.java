@@ -12,14 +12,6 @@ public class StudentStorage {
         array[size++] = student;
     }
 
-    private void extend() {
-        Student[] tmp = new Student[array.length + 10];
-        for (int i = 0; i < array.length; i++) {
-            tmp[i] = array[i];
-        }
-        array = tmp;
-    }
-
     public void printArray() {
         for (int i = 0; i < size; i++) {
             System.out.println(i + ". " + array[i] + " ");
@@ -97,6 +89,22 @@ public class StudentStorage {
 
     public void changeNameLesson(int indexStudent, String changeLessonName) {
         array[indexStudent].setLesson(changeLessonName);
+    }
+
+    public Student getStudent(int index) {
+        if (index < 0 || index >= size) {
+            return null;
+        } else {
+            return array[index];
+        }
+    }
+
+    private void extend() {
+        Student[] tmp = new Student[array.length + 10];
+        for (int i = 0; i < array.length; i++) {
+            tmp[i] = array[i];
+        }
+        array = tmp;
     }
 }
 

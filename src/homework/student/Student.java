@@ -9,7 +9,6 @@ public class Student {
     private int age;
     private String phoneNumber;
     private String city;
-
     private String lesson;
 
     public Student(String name, String surName, int age, String phoneNumber, String city, String lesson) {

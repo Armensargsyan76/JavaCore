@@ -10,4 +10,5 @@ public class BoxColor extends Box {
         depth = d;
         color = c;
     }
+    
 }

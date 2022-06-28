@@ -25,11 +25,12 @@ public class Box {
     }
 
     Box(int len) {
+
         wight = height = depth = len;
     }
 
     double volume() {
+
         return wight * height * depth;
     }
-
 }
