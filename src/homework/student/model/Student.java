@@ -1,4 +1,4 @@
-package homework.student;
+package homework.student.model;
 
 import java.util.Objects;
 
@@ -9,9 +9,9 @@ public class Student {
     private int age;
     private String phoneNumber;
     private String city;
-    private String lesson;
+    private Lesson lesson;
 
-    public Student(String name, String surName, int age, String phoneNumber, String city, String lesson) {
+    public Student(String name, String surName, int age, String phoneNumber, String city, Lesson lesson) {
         this.name = name;
         this.surName = surName;
         this.age = age;
@@ -20,11 +20,11 @@ public class Student {
         this.lesson = lesson;
     }
 
-    public String getLesson() {
+    public Lesson getLesson() {
         return lesson;
     }
 
-    public void setLesson(String lesson) {
+    public void setLesson(Lesson lesson) {
         this.lesson = lesson;
     }
 
@@ -78,7 +78,7 @@ public class Student {
                 ", surName='" + surName + '\'' +
                 ", age=" + age +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", lesson='" + lesson + '\'' +
+                ", lesson='" + lesson.getName() + '\'' +
                 ", city='" + city + '\'' +
                 '}';
     }

@@ -1,15 +1,18 @@
-package homework.student;
+package homework.student.storage;
 
-public class StudentStorage {
+import homework.student.model.Lesson;
+import homework.student.model.Student;
 
-    private Student[] array = new Student[10];
+public class LessonStorage {
+
+    private Lesson[] array = new Lesson[10];
     private int size;
 
-    public void add(Student student) {
+    public void add(Lesson lesson) {
         if (size == array.length) {
             extend();
         }
-        array[size++] = student;
+        array[size++] = lesson;
     }
 
     public void printArray() {
@@ -18,32 +21,29 @@ public class StudentStorage {
         }
     }
 
-    boolean isEmpty() {
+    public boolean isEmpty() {
 
         return size == 0;
     }
 
-    Student getByIndex(int index) {
 
-        return array[index];
-    }
 
-    int getFirstIndexByValue(Student student) {
+    public int getFirstIndexByValue(Lesson lesson) {
         int i = 0;
         for (i = 0; i < size; i++) {
-            if (array[i].equals(student)) {
+            if (array[i].equals(lesson)) {
                 return i;
             }
         }
         return i;
     }
 
-    void set(int index, Student student) {
+    public void set(int index, Lesson lesson) {
 
-        array[index] = student;
+        array[index] = lesson;
     }
 
-    void add(int index, Student student) {
+    public void add(int index, Lesson lesson) {
         if (index >= 0 && index < size) {
             for (int i = size; i >= index; i--) {
                 if (size == array.length) {
@@ -51,7 +51,7 @@ public class StudentStorage {
                 }
                 array[i] = array[i - 1];
             }
-            array[index] = student;
+            array[index] = lesson;
             size++;
         } else {
             System.out.println("Error : index out of bounds");
@@ -59,7 +59,7 @@ public class StudentStorage {
 
     }
 
-    void delete(int index) {
+    public void delete(int index) {
         if (index >= 0 && index < size) {
             for (int i = index; i < size; i++) {
                 if (size == array.length) {
@@ -75,23 +75,13 @@ public class StudentStorage {
     }
 
 
-    public void printByLessonName(String lessonName) {
-        for (int i = 0; i < size; i++) {
-            if (array[i].getLesson().equals(lessonName)) {
-                System.out.println(array[i]);
-            }
-        }
-    }
-
     public int getSize() {
+
         return size;
     }
 
-    public void changeNameLesson(int indexStudent, String changeLessonName) {
-        array[indexStudent].setLesson(changeLessonName);
-    }
 
-    public Student getStudent(int index) {
+    public Lesson getLessonByIndex(int index) {
         if (index < 0 || index >= size) {
             return null;
         } else {
@@ -100,7 +90,7 @@ public class StudentStorage {
     }
 
     private void extend() {
-        Student[] tmp = new Student[array.length + 10];
+        Lesson[] tmp = new Lesson[array.length + 10];
         for (int i = 0; i < array.length; i++) {
             tmp[i] = array[i];
         }
