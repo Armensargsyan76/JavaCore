@@ -1,6 +1,6 @@
 package homework.books;
 
-import chapters.chapter8.A;
+import homework.books.command.Commands;
 import homework.books.model.Author;
 import homework.books.model.Book;
 import homework.books.storage.AuthorStorage;
@@ -11,12 +11,12 @@ import java.util.Scanner;
 public class BookTest implements Commands {
 
     private static Scanner scanner = new Scanner(System.in);
-    static BookStorage bookStorage = new BookStorage();
+    public static BookStorage bookStorage = new BookStorage();
 
-    static AuthorStorage authorStorage = new AuthorStorage();
+    public static AuthorStorage authorStorage = new AuthorStorage();
 
     public static void main(String[] args) {
-        Commands.createAuthorsAndBooks();
+        bookStorage.printAuthorsAndBooks();
         boolean run = true;
         while (run) {
             try {

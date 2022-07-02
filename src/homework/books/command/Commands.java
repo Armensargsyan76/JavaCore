@@ -1,4 +1,4 @@
-package homework.books;
+package homework.books.command;
 
 import homework.books.model.Author;
 import homework.books.model.Book;
@@ -30,18 +30,5 @@ public interface Commands {
         System.out.println("Please input " + PRINT_AUTHORS + " for print all author's");
     }
 
-    static void createAuthorsAndBooks() {
-        Author J_K_Rowling = new Author("Joanne", "Rowling", "@harryPotter.com", "Female");
-        Author Mario_Puzo = new Author("Mario", "Puzo", "@maildraxt.com", "male");
-        Author Arthur_Conan_Doyle = new Author("Arthur", "Conan_Doyle", "@mailSherlock.com", "male");
-        Author John_Tolkien = new Author("John", "Tolkien", "@mailGendalf.com", "male");
-        authorStorage.add(J_K_Rowling);
-        authorStorage.add(Mario_Puzo);
-        authorStorage.add(Arthur_Conan_Doyle);
-        authorStorage.add(John_Tolkien);
-        bookStorage.add(new Book("GodFather", Mario_Puzo, 50000, "criminal drama"));
-        bookStorage.add(new Book("Sherlock Holmes", Arthur_Conan_Doyle, 40000, "detective"));
-        bookStorage.add(new Book("Hobbit", John_Tolkien, 30000, "fantasy"));
-        bookStorage.add(new Book("Harry Potter", J_K_Rowling, 25000, "fantasy"));
-    }
+
 }
