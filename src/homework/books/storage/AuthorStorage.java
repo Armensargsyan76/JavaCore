@@ -1,5 +1,6 @@
 package homework.books.storage;
 
+import homework.books.AuthorNotFoundException;
 import homework.books.model.Author;
 import homework.books.model.Book;
 
@@ -33,11 +34,11 @@ public class AuthorStorage {
         return size;
     }
 
-    public Author getAuthorByIndex(int authorIndex) {
-        if (authorIndex >= 0 && authorIndex < size) {
-            return array[authorIndex];
+    public Author getAuthorByIndex(int authorIndex) throws AuthorNotFoundException {
+        if (authorIndex < 0 || authorIndex >= size) {
+            throw new AuthorNotFoundException("Please choose correct index");
         } else {
-            return null;
+            return array[authorIndex];
         }
 
     }

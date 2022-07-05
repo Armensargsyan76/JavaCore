@@ -12,46 +12,61 @@ public class BookTest implements Commands {
 
     private static Scanner scanner = new Scanner(System.in);
     public static BookStorage bookStorage = new BookStorage();
-
     public static AuthorStorage authorStorage = new AuthorStorage();
 
     public static void main(String[] args) {
-        bookStorage.printAuthorsAndBooks();
+        Author JKRowling = new Author("Joanne", "Rowling", "@harryPotter.com", "Female");
+        Author MarioPuzo = new Author("Mario", "Puzo", "@maildraxt.com", "male");
+        Author ArthurConanDoyle = new Author("Arthur", "Conan_Doyle", "@mailSherlock.com", "male");
+        Author JohnTolkien = new Author("John", "Tolkien", "@mailGendalf.com", "male");
+        AuthorStorage authorStorage = new AuthorStorage();
+        authorStorage.add(JKRowling);
+        authorStorage.add(MarioPuzo);
+        authorStorage.add(ArthurConanDoyle);
+        authorStorage.add(JohnTolkien);
+        bookStorage.add(new Book("GodFather", MarioPuzo, 50000, "criminal drama"));
+        bookStorage.add(new Book("Sherlock Holmes", ArthurConanDoyle, 40000, "detective"));
+        bookStorage.add(new Book("Hobbit", JohnTolkien, 30000, "fantasy"));
+        bookStorage.add(new Book("Harry Potter", JKRowling, 25000, "fantasy"));
+
         boolean run = true;
         while (run) {
+            Commands.printCommands();
+            int command;
             try {
-                Commands.printCommands();
-                int command = Integer.parseInt(scanner.nextLine());
-                switch (command) {
-                    case EXIT:
-                        run = false;
-                        break;
-                    case ADD_BOOK:
-                        addBook();
-                        break;
-                    case PRINT_ALL_BOOKS:
-                        bookStorage.printAllBooks();
-                        break;
-                    case PRINT_BOOKS_BY_AUTHOR_NAME:
-                        printBooksByAuthorName();
-                        break;
-                    case PRINT_BOOKS_BY_GENRE:
-                        printBooksByGenre();
-                        break;
-                    case PRINT_BOOKS_BY_PRICE_RANGE:
-                        printBooksByRange();
-                        break;
-                    case ADD_AUTHORS:
-                        addAuthor();
-                        break;
-                    case PRINT_AUTHORS:
-                        authorStorage.printAllAuthor();
-                        break;
-                }
+                command = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("please input only numbers!!");
-
+                command = -1;
             }
+            switch (command) {
+                case EXIT:
+                    run = false;
+                    break;
+                case ADD_BOOK:
+                    addBook();
+                    break;
+                case PRINT_ALL_BOOKS:
+                    bookStorage.printAllBooks();
+                    break;
+                case PRINT_BOOKS_BY_AUTHOR_NAME:
+                    printBooksByAuthorName();
+                    break;
+                case PRINT_BOOKS_BY_GENRE:
+                    printBooksByGenre();
+                    break;
+                case PRINT_BOOKS_BY_PRICE_RANGE:
+                    printBooksByRange();
+                    break;
+                case ADD_AUTHORS:
+                    addAuthor();
+                    break;
+                case PRINT_AUTHORS:
+                    authorStorage.printAllAuthor();
+                    break;
+                default:
+                    System.out.println("invalid command");
+            }
+
 
         }
     }
@@ -65,7 +80,11 @@ public class BookTest implements Commands {
         String email = scanner.nextLine();
         System.out.println("Please choose author gender index: 1.male, 2.female");
         String gender;
-        int indexGender = Integer.parseInt(scanner.nextLine());
+        int indexGender = 0;
+        try {
+            indexGender = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+        }
         if (indexGender == 1) {
             gender = "male";
         } else gender = "female";
@@ -89,10 +108,17 @@ public class BookTest implements Commands {
     }
 
     private static void printBooksByRange() {
-        System.out.println("Please input range from");
-        int rangeFrom = Integer.parseInt(scanner.nextLine());
-        System.out.println("Please input price to");
-        int rangeTo = Integer.parseInt(scanner.nextLine());
+        int rangeFrom = 0;
+        int rangeTo = 0;
+        try {
+            System.out.println("Please input range from");
+            rangeFrom = Integer.parseInt(scanner.nextLine());
+            System.out.println("Please input price to");
+            rangeTo = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("please note only numbers");
+        }
+
         int tmp = 0;
         if (rangeFrom > rangeTo) {
             tmp = rangeTo;
@@ -122,6 +148,8 @@ public class BookTest implements Commands {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please note only numbers");
+            } catch (AuthorNotFoundException e) {
+                System.out.println(e);
             }
         } else {
             System.out.println("Please create author");
@@ -141,8 +169,16 @@ public class BookTest implements Commands {
         } else {
             authorStorage.printAllAuthor();
             System.out.println("please choose index author");
-            int authorIndex = Integer.parseInt(scanner.nextLine());
-            Author author = authorStorage.getAuthorByIndex(authorIndex);
+
+            Author author = null;
+            try {
+                int authorIndex = Integer.parseInt(scanner.nextLine());
+                author = authorStorage.getAuthorByIndex(authorIndex);
+            } catch (AuthorNotFoundException e) {
+                System.out.println(e);
+            } catch (NumberFormatException e) {
+                System.out.println("please input only numbers");
+            }
             if (author == null) {
                 System.out.println("please choose correct index!!!");
                 addBook();
