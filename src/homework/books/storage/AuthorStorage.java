@@ -1,8 +1,7 @@
 package homework.books.storage;
 
-import homework.books.AuthorNotFoundException;
+import homework.books.exception.AuthorNotFoundException;
 import homework.books.model.Author;
-import homework.books.model.Book;
 
 public class AuthorStorage {
 

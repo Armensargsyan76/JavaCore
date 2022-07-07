@@ -1,14 +1,16 @@
 package homework.books.model;
 
+import homework.books.enumstorage.Gender;
+
 public class Author {
 
     private String name;
     private String surName;
     private String email;
-    private String gender;
+    private Gender gender;
 
 
-    public Author(String name, String surName, String email, String gender) {
+    public Author(String name, String surName, String email, Gender gender) {
         this.name = name;
         this.surName = surName;
         this.email = email;
@@ -42,11 +44,11 @@ public class Author {
         this.email = email;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

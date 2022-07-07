@@ -1,6 +1,8 @@
 package homework.books;
 
 import homework.books.command.Commands;
+import homework.books.enumstorage.Gender;
+import homework.books.exception.AuthorNotFoundException;
 import homework.books.model.Author;
 import homework.books.model.Book;
 import homework.books.storage.AuthorStorage;
@@ -15,11 +17,10 @@ public class BookTest implements Commands {
     public static AuthorStorage authorStorage = new AuthorStorage();
 
     public static void main(String[] args) {
-        Author JKRowling = new Author("Joanne", "Rowling", "@harryPotter.com", "Female");
-        Author MarioPuzo = new Author("Mario", "Puzo", "@maildraxt.com", "male");
-        Author ArthurConanDoyle = new Author("Arthur", "Conan_Doyle", "@mailSherlock.com", "male");
-        Author JohnTolkien = new Author("John", "Tolkien", "@mailGendalf.com", "male");
-        AuthorStorage authorStorage = new AuthorStorage();
+        Author JKRowling = new Author("Joanne", "Rowling", "@harryPotter.com", Gender.FEMALE);
+        Author MarioPuzo = new Author("Mario", "Puzo", "@maildraxt.com", Gender.MALE);
+        Author ArthurConanDoyle = new Author("Arthur", "Conan_Doyle", "@mailSherlock.com", Gender.MALE);
+        Author JohnTolkien = new Author("John", "Tolkien", "@mailGendalf.com", Gender.MALE);
         authorStorage.add(JKRowling);
         authorStorage.add(MarioPuzo);
         authorStorage.add(ArthurConanDoyle);
@@ -28,7 +29,10 @@ public class BookTest implements Commands {
         bookStorage.add(new Book("Sherlock Holmes", ArthurConanDoyle, 40000, "detective"));
         bookStorage.add(new Book("Hobbit", JohnTolkien, 30000, "fantasy"));
         bookStorage.add(new Book("Harry Potter", JKRowling, 25000, "fantasy"));
+        logInProgram();
+    }
 
+    private static void runProgram() {
         boolean run = true;
         while (run) {
             Commands.printCommands();
@@ -71,6 +75,39 @@ public class BookTest implements Commands {
         }
     }
 
+    private static Gender chooseGenderByIndex() {
+        Gender[] genders = Gender.values();
+        System.out.println("Please choose correct author gender index");
+        for (Gender genderValue : genders) {
+            System.out.println(genderValue.ordinal() + ": " + genderValue);
+        }
+        int genderIndex;
+        Gender gender = null;
+        try {
+            genderIndex = Integer.parseInt(scanner.nextLine());
+            gender = genders[genderIndex];
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("please input correct index");
+            addAuthor();
+        }
+        return gender;
+    }
+
+
+    private static void logInProgram() {
+        System.out.println("please input login");
+        String login = scanner.nextLine();
+        System.out.println("please input password");
+        String password = scanner.nextLine();
+        if (login.equals("admin") && password.equals("123456")) {
+            runProgram();
+        } else {
+            System.out.println("please input correct login or password");
+            logInProgram();
+        }
+
+    }
+
     private static void addAuthor() {
         System.out.println("Please input author name");
         String authorName = scanner.nextLine();
@@ -78,20 +115,9 @@ public class BookTest implements Commands {
         String authorSurName = scanner.nextLine();
         System.out.println("Please input author email");
         String email = scanner.nextLine();
-        System.out.println("Please choose author gender index: 1.male, 2.female");
-        String gender;
-        int indexGender = 0;
-        try {
-            indexGender = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-        }
-        if (indexGender == 1) {
-            gender = "male";
-        } else gender = "female";
-        if (indexGender < 1 || indexGender > 2) {
-            System.out.println("Please choose index 1 or index 2 !!!");
-            addAuthor();
-        } else {
+        Gender gender = chooseGenderByIndex();
+        if (gender==null){
+        }else {
             if (authorName == null || authorName.equals("")) {
                 System.out.println("Please input author name!!!");
             } else if (authorSurName == null || authorSurName.equals("")) {
@@ -106,6 +132,7 @@ public class BookTest implements Commands {
         }
 
     }
+
 
     private static void printBooksByRange() {
         int rangeFrom = 0;
@@ -157,19 +184,25 @@ public class BookTest implements Commands {
 
     }
 
+
     private static void addBook() {
         if (authorStorage.getSize() == 0) {
             System.out.println("for create book need has author");
             System.out.println(" please create author");
             System.out.println("for create author choose_1: for exit choose_2");
-            int command = Integer.parseInt(scanner.nextLine());
+            int command = 0;
+            try {
+                command = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("please input only numbers");
+            }
+
             if (command == 1) {
                 addAuthor();
             } else if (false) ;
         } else {
             authorStorage.printAllAuthor();
             System.out.println("please choose index author");
-
             Author author = null;
             try {
                 int authorIndex = Integer.parseInt(scanner.nextLine());
