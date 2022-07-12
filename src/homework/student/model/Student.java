@@ -10,14 +10,16 @@ public class Student {
     private String phoneNumber;
     private String city;
     private Lesson lesson;
+    private User registeredUser;
 
-    public Student(String name, String surName, int age, String phoneNumber, String city, Lesson lesson) {
+    public Student(String name, String surName, int age, String phoneNumber, String city, Lesson lesson, User registeredUser) {
         this.name = name;
         this.surName = surName;
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.city = city;
         this.lesson = lesson;
+        this.registeredUser=registeredUser;
     }
 
     public Lesson getLesson() {
@@ -71,6 +73,14 @@ public class Student {
         this.city = city;
     }
 
+    public User getRegisteredUser() {
+        return registeredUser;
+    }
+
+    public void setRegisteredUser(User registeredUser) {
+        this.registeredUser = registeredUser;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -79,6 +89,7 @@ public class Student {
                 ", age=" + age +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", lesson='" + lesson.getName() + '\'' +
+                ", registeredUser='" + registeredUser + '\'' +
                 ", city='" + city + '\'' +
                 '}';
     }

@@ -2,11 +2,14 @@ package homework.books;
 
 import homework.books.command.Commands;
 import homework.books.enumstorage.Gender;
+import homework.books.enumstorage.UserType;
 import homework.books.exception.AuthorNotFoundException;
 import homework.books.model.Author;
 import homework.books.model.Book;
+import homework.books.model.User;
 import homework.books.storage.AuthorStorage;
 import homework.books.storage.BookStorage;
+import homework.books.storage.UserStorage;
 
 import java.util.Scanner;
 
@@ -16,7 +19,41 @@ public class BookTest implements Commands {
     public static BookStorage bookStorage = new BookStorage();
     public static AuthorStorage authorStorage = new AuthorStorage();
 
+    public static UserStorage userStorage = new UserStorage();
+
+    private static User currentUser = null;
+
     public static void main(String[] args) {
+        initData();
+        runProgram();
+    }
+
+    private static void runProgram() {
+        boolean run = true;
+        while (run) {
+            Commands.printLoginCommands();
+            int command;
+            try {
+                command = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                command = -1;
+            }
+            switch (command) {
+                case EXIT:
+                    run = false;
+                    break;
+                case LOGIN:
+                    login();
+                    break;
+                case REGISTER:
+                    registerUser();
+            }
+        }
+    }
+
+    private static void initData() {
+        User admin = new User("admin", "adminyan", "admin@.com", "admin", UserType.ADMIN);
+        userStorage.add(admin);
         Author JKRowling = new Author("Joanne", "Rowling", "@harryPotter.com", Gender.FEMALE);
         Author MarioPuzo = new Author("Mario", "Puzo", "@maildraxt.com", Gender.MALE);
         Author ArthurConanDoyle = new Author("Arthur", "Conan_Doyle", "@mailSherlock.com", Gender.MALE);
@@ -25,17 +62,17 @@ public class BookTest implements Commands {
         authorStorage.add(MarioPuzo);
         authorStorage.add(ArthurConanDoyle);
         authorStorage.add(JohnTolkien);
-        bookStorage.add(new Book("GodFather", MarioPuzo, 50000, "criminal drama"));
-        bookStorage.add(new Book("Sherlock Holmes", ArthurConanDoyle, 40000, "detective"));
-        bookStorage.add(new Book("Hobbit", JohnTolkien, 30000, "fantasy"));
-        bookStorage.add(new Book("Harry Potter", JKRowling, 25000, "fantasy"));
-        logInProgram();
+        bookStorage.add(new Book("GodFather", MarioPuzo, 50000, "criminal drama", admin));
+        bookStorage.add(new Book("Sherlock Holmes", ArthurConanDoyle, 40000, "detective", admin));
+        bookStorage.add(new Book("Hobbit", JohnTolkien, 30000, "fantasy", admin));
+        bookStorage.add(new Book("Harry Potter", JKRowling, 25000, "fantasy", admin));
     }
 
-    private static void runProgram() {
+    private static void logAdmin() {
         boolean run = true;
         while (run) {
-            Commands.printCommands();
+            Commands.printAdminCommands();
+            ;
             int command;
             try {
                 command = Integer.parseInt(scanner.nextLine());
@@ -75,6 +112,48 @@ public class BookTest implements Commands {
         }
     }
 
+    private static void logUser() {
+        boolean run = true;
+        while (run) {
+            Commands.printUserCommands();
+
+            int command;
+            try {
+                command = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                command = -1;
+            }
+            switch (command) {
+                case EXIT:
+                    run = false;
+                    break;
+                case ADD_BOOK:
+                    addBook();
+                    break;
+                case PRINT_ALL_BOOKS:
+                    bookStorage.printAllBooks();
+                    break;
+                case PRINT_BOOKS_BY_AUTHOR_NAME:
+                    printBooksByAuthorName();
+                    break;
+                case PRINT_BOOKS_BY_GENRE:
+                    printBooksByGenre();
+                    break;
+                case PRINT_BOOKS_BY_PRICE_RANGE:
+                    printBooksByRange();
+                    break;
+                case ADD_AUTHORS:
+                    addAuthor();
+                    break;
+                case PRINT_AUTHORS:
+                    authorStorage.printAllAuthor();
+                    break;
+                default:
+                    System.out.println("invalid command");
+            }
+        }
+    }
+
     private static Gender chooseGenderByIndex() {
         Gender[] genders = Gender.values();
         System.out.println("Please choose correct author gender index");
@@ -89,24 +168,11 @@ public class BookTest implements Commands {
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println("please input correct index");
             addAuthor();
+
         }
         return gender;
     }
 
-
-    private static void logInProgram() {
-        System.out.println("please input login");
-        String login = scanner.nextLine();
-        System.out.println("please input password");
-        String password = scanner.nextLine();
-        if (login.equals("admin") && password.equals("123456")) {
-            runProgram();
-        } else {
-            System.out.println("please input correct login or password");
-            logInProgram();
-        }
-
-    }
 
     private static void addAuthor() {
         System.out.println("Please input author name");
@@ -116,8 +182,8 @@ public class BookTest implements Commands {
         System.out.println("Please input author email");
         String email = scanner.nextLine();
         Gender gender = chooseGenderByIndex();
-        if (gender==null){
-        }else {
+        if (gender == null) {
+        } else {
             if (authorName == null || authorName.equals("")) {
                 System.out.println("Please input author name!!!");
             } else if (authorSurName == null || authorSurName.equals("")) {
@@ -230,7 +296,7 @@ public class BookTest implements Commands {
                     } else if (genre == null || genre.equals("")) {
                         System.out.println("Please input genre name!!!!");
                     } else {
-                        Book book = new Book(booksName.trim(), author, price, genre.trim());
+                        Book book = new Book(booksName.trim(), author, price, genre.trim(), currentUser);
                         bookStorage.add(book);
                         System.out.println("book created");
                     }
@@ -243,6 +309,58 @@ public class BookTest implements Commands {
 
     }
 
+
+    private static void registerUser() {
+        System.out.println("please input name, surName, email, password");
+        String userStr = scanner.nextLine();
+        String[] data = userStr.split(",");
+        if (data.length < 4) {
+            System.out.println("please input correct data");
+        } else {
+            if (data[0].equals("")) {
+                System.out.println("please input name!!!");
+            } else if (data[1].equals("")) {
+                System.out.println("please input sur name!!!");
+            } else if (userStorage.getUserByEmail(data[2]) == null && data[2].contains("@")) {
+                User user = new User();
+                user.setName(data[0]);
+                user.setSurname(data[1]);
+                user.setEmail(data[2]);
+                user.setPassword(data[3]);
+                user.setUsertype(UserType.USER);
+                userStorage.add(user);
+                System.out.println("user created");
+            } else {
+                System.out.println("please input correct email");
+            }
+
+        }
+    }
+
+    private static void login() {
+        System.out.println("please input email,password");
+        String emailPasswordStr = scanner.nextLine();
+        String[] emailPassword = emailPasswordStr.split(",");
+        if (emailPassword.length < 2) {
+            System.out.println("please input correct data");
+        }else {
+            User user = userStorage.getUserByEmail(emailPassword[0]);
+            if (user == null) {
+                System.out.println("email witch " + emailPassword[0] + " does not exists");
+            } else if (user.getPassword().equals(emailPassword[1])) {
+                currentUser = user;
+                if (user.getUsertype() == UserType.ADMIN) {
+                    logAdmin();
+                } else if (user.getUsertype() == UserType.USER) {
+                    logUser();
+                }
+            } else {
+                System.out.println("wrong password!");
+            }
+
+        }
+
+    }
 
 }
 
