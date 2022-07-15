@@ -16,7 +16,7 @@ public class ArrayUtil {
                 max = array[i];
             }
         }
-        System.out.println("max : " + max);
+        System.out.println("max = " + max);
 
         int min = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -24,44 +24,45 @@ public class ArrayUtil {
                 min = array[i];
             }
         }
-        System.out.println("min : " + min);
+        System.out.println("min = " + min);
 
+        System.out.print("evens :");
         for (int i = 0; i < array.length; i++) {
             if (array[i] % 2 == 0 && array[i] != 0) {
                 System.out.print(array[i] + " ");
             }
         }
         System.out.println();
-
+        System.out.print("odds :");
         for (int i = 0; i < array.length; i++) {
             if (array[i] % 2 != 0) {
                 System.out.print(array[i] + " ");
             }
         }
-
         System.out.println();
 
-        int count = 0;
+        int countEven = 0;
         for (int i = 0; i < array.length; i++) {
             if (array[i] % 2 == 0 && array[i] != 0) {
-                count++;
+                countEven++;
             }
         }
-        System.out.println("even county : " + count);
+        System.out.println("quantity evens :" + countEven);
 
-        int count1 = 0;
+        int countAdd = 0;
         for (int i = 0; i < array.length; i++) {
             if (array[i] % 2 != 0) {
-                count1++;
+                countAdd++;
             }
         }
-        System.out.println("odd : " + count1);
+        System.out.println("quantity adds :" + countAdd);
+
 
         double result = 0;
         for (int i = 0; i < array.length; i++) {
             result += array[i];
         }
-        System.out.println(result / array.length);
+        System.out.println("average =" + result / array.length);
 
         double result1 = 0;
         for (int i = 0; i < array.length; i++) {
