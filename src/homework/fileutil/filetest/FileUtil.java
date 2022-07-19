@@ -80,7 +80,6 @@ public class FileUtil {
         if (myFile.isDirectory()) {
             System.out.println("please input file name");
             String fileName = scanner.nextLine();
-            File[] files = myFile.listFiles();
             recursionSearch(myFile, fileName);
         } else {
             System.out.println("please input correct path");
