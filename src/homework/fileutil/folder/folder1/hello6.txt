@@ -1,0 +1,3 @@
+C:\Users\Armen\IdeaProjects\JavaCore\src\homework\fileutil\folder\folder1\hello6.txt
+from
+

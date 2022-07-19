@@ -1,6 +1,13 @@
 package homework.student.model;
 
+import homework.student.util.DateUtil;
+
+import java.util.Date;
+
+import static homework.student.util.DateUtil.dateToString;
+
 import java.util.Objects;
+
 
 public class Student {
 
@@ -12,14 +19,25 @@ public class Student {
     private Lesson lesson;
     private User registeredUser;
 
-    public Student(String name, String surName, int age, String phoneNumber, String city, Lesson lesson, User registeredUser) {
+    private Date registerDate;
+
+    public Student(String name, String surName, int age, String phoneNumber, String city, Lesson lesson, User registeredUser, Date registerDate) {
         this.name = name;
         this.surName = surName;
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.city = city;
         this.lesson = lesson;
-        this.registeredUser=registeredUser;
+        this.registeredUser = registeredUser;
+        this.registerDate = registerDate;
+    }
+
+    public Date getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
     }
 
     public Lesson getLesson() {
@@ -90,6 +108,7 @@ public class Student {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", lesson='" + lesson.getName() + '\'' +
                 ", registeredUser='" + registeredUser + '\'' +
+                ", registeredDate='" + dateToString(registerDate) + '\'' +
                 ", city='" + city + '\'' +
                 '}';
     }
