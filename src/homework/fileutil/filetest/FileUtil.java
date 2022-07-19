@@ -74,7 +74,6 @@ public class FileUtil {
     // 2 - fileName - ֆայլի անունը, որը փնտրում ենք։
     //Որպես արդյունք պտի ծրագիրը տպի true եթե կա էդ ֆայլը էդ պապկի մեջ, false եթե չկա։
     static void fileSearch() {
-        boolean b = false;
         System.out.println("please input path");
         String path = scanner.nextLine();
         File myFile = new File(path);
