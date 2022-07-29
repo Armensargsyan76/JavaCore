@@ -4,8 +4,8 @@ public class BraceCheckerUpgrade {
 
     String text;
 
-    private Stack stack = new Stack();
-    private Stack stackForIndex = new Stack();
+    private Stack stack = new Stack(20);
+    private Stack stackForIndex = new Stack(20);
 
     BraceCheckerUpgrade(String text) {
         this.text = text;

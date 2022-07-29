@@ -8,7 +8,7 @@ public class BraceChecker {
     }
 
     void check() {
-        Stack stack = new Stack();
+        Stack stack = new Stack(10);
         char[] chars = text.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             switch (chars[i]) {
